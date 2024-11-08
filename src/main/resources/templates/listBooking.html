@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookings page - All the bookings are here</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Bookings</h1>
+</header>
+<main>
+    <form th:method="GET" th:action="@{/eventBooking}">
+        <h2>Search bookings:</h2>
+        <label for="searchText">Enter an event name: </label><input id="searchText" type="text" name="searchText">
+        <br/>
+        <input type="submit" value="Submit">
+    </form>
+    <ul>
+        <li th:each="booking : ${bookings}">
+            <th:block th:text="${booking.getAttendeeName()}"></th:block>
+            <th:block th:text="${booking.getEventName()}"></th:block>
+            <th:block th:text="${booking.getAttendeeAddress()}"></th:block>
+            <th:block th:text="${booking.getNumberOfTickets()}"></th:block>
+        </li>
+    </ul>
+</main>
+</body>
+</html>

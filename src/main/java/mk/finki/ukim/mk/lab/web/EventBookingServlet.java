@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import mk.finki.ukim.mk.lab.model.Event;
+import mk.finki.ukim.mk.lab.model.EventBooking;
 import mk.finki.ukim.mk.lab.service.EventBookingService;
 import mk.finki.ukim.mk.lab.service.EventService;
 import org.thymeleaf.context.WebContext;
@@ -25,6 +26,26 @@ public class EventBookingServlet extends HttpServlet {
     private final SpringTemplateEngine springTemplateEngine;
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        List<EventBooking> eventBookings;
+
+        if(req.getParameter("searchText") != null && req.getParameter("searchText") != "") {
+            eventBookings = eventBookingService.getBookingsByName(req.getParameter("searchText"));
+        } else
+            eventBookings = eventBookingService.eventBookings();
+
+        IWebExchange webExchange = JakartaServletWebApplication
+                .buildApplication(getServletContext())
+                .buildExchange(req, resp);
+        WebContext context = new WebContext(webExchange);
+
+        context.setVariable("bookings", eventBookings);
+
+        springTemplateEngine.process("listBooking.html", context, resp.getWriter());
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         IWebExchange webExchange = JakartaServletWebApplication
                 .buildApplication(getServletContext())
@@ -39,6 +60,8 @@ public class EventBookingServlet extends HttpServlet {
         context.setVariable("tickets", tickets);
         context.setVariable("ipAddress", req.getRemoteAddr());
         context.setVariable("user", user);
+
+        eventBookingService.placeBooking(eventName, user, req.getRemoteAddr(), tickets);
 
         springTemplateEngine.process("bookingConfirmation.html", context, resp.getWriter());
     }

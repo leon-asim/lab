@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class EventBookingRepository {
@@ -15,5 +16,12 @@ public class EventBookingRepository {
         eventBookingList.add(savedBooking);
 
         return savedBooking;
+    }
+    public List<EventBooking> getBookings() {
+        return eventBookingList;
+    }
+
+    public List<EventBooking> getBookingsByName(String text) {
+        return eventBookingList.stream().filter(i -> i.getEventName().contains(text)).collect(Collectors.toList());
     }
 }
