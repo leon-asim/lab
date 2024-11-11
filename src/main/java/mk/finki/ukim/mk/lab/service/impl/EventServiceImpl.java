@@ -13,7 +13,6 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
-
     @Override
     public List<Event> listAll() {
         return eventRepository.findAll();

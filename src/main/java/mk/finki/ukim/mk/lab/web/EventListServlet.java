@@ -46,4 +46,13 @@ public class EventListServlet extends HttpServlet {
 
         springTemplateEngine.process("listEvents.html", context, resp.getWriter());
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String eventName = req.getParameter("eventName");
+        String user = req.getParameter("userName");
+        String tickets = req.getParameter("numTickets");
+
+        resp.sendRedirect(String.format("/eventBooking?userName=%s&numTickets=%s&eventName=%s", user, tickets, eventName));
+    }
 }

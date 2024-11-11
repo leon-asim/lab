@@ -15,7 +15,7 @@
     <h1>Bookings</h1>
 </header>
 <main>
-    <form th:method="GET" th:action="@{/eventBooking}">
+    <form th:method="GET" th:action="@{/bookings}">
         <h2>Search bookings:</h2>
         <label for="searchText">Enter an event name: </label><input id="searchText" type="text" name="searchText">
         <br/>
@@ -25,7 +25,7 @@
         <li th:each="booking : ${bookings}">
             <th:block th:text="${booking.getAttendeeName()}"></th:block>
             <th:block th:text="${booking.getEventName()}"></th:block>
-            <th:block th:text="${booking.getAttendeeAddress()}"></th:block>
+<!--            <th:block th:text="${booking.getAttendeeAddress()}"></th:block>-->
             <th:block th:text="${booking.getNumberOfTickets()}"></th:block>
         </li>
     </ul>

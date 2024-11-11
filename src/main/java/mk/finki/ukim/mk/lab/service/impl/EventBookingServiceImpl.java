@@ -16,12 +16,7 @@ public class EventBookingServiceImpl implements EventBookingService {
 
     @Override
     public EventBooking placeBooking(String eventName, String attendeeName, String attendeeAddress, String numberOfTickets) {
-        int num = 0;
-        if(Integer.getInteger(numberOfTickets) != null) {
-            num = Integer.getInteger(numberOfTickets);
-        }
-
-        return eventBookingRepository.placeBooking(eventName, attendeeName, attendeeAddress, num);
+        return eventBookingRepository.placeBooking(eventName, attendeeName, attendeeAddress, Integer.parseInt(numberOfTickets));
     }
 
     @Override
