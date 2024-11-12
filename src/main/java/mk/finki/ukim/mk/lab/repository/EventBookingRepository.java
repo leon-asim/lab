@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 public class EventBookingRepository {
     public static List<EventBooking> eventBookingList = new ArrayList<>();
 
-    public EventBooking placeBooking(String eventName, String attendeeName, String attendeeAddress, int numberOfTickets) {
-        EventBooking savedBooking = new EventBooking(eventName, attendeeName, attendeeAddress, (long)numberOfTickets);
+    public EventBooking placeBooking(String eventName, String attendeeName, Long numberOfTickets) {
+        EventBooking savedBooking = new EventBooking(eventName, attendeeName, numberOfTickets);
         eventBookingList.add(savedBooking);
 
         return savedBooking;

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event</title>
+</head>
+<body>
+<div xmlns:th="http://www.thymeleaf.org">
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">WEB PROGRAMMING SHOP</h1>
+        </div>
+    </section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <form action="/events/add" method="POST">
+                    <input id="id" type="hidden" name="id"
+                           th:value="(${event} != null ? ${event.getId()} : '')">
+                    <div class="form-group">
+                        <label for="name">Product name</label>
+                        <input type="text"
+                               class="form-control"
+                               id="name"
+                               name="name"
+                               th:value="(${event} != null ? ${event.getName()} : '')"
+                               required
+                               placeholder="Event name">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text"
+                               class="form-control"
+                               id="description"
+                               name="description"
+                               th:value="(${event} != null ? ${event.getDescription()} : '')"
+                               placeholder="Description">
+                    </div>
+                    <div class="form-group">
+                        <label for="popularityScore">Popularity score</label>
+                        <input type="text"
+                               class="form-control"
+                               id="popularityScore"
+                               name="popularityScore"
+                               th:value="(${event} != null ? ${event.getPopularityScore()} : '')"
+                               placeholder="Popularity score">
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="location" class="form-control">
+                            <option th:if="${event} != null"
+                                    th:selected="${event.getLocation() != null &&
+                                event.getLocation().getId() == location.getId()}"
+                                    th:each="location : ${locations}"
+                                    th:value="${location.getId()}"
+                                    th:text="${location.getName()}">
+                            </option>
+                            <option th:if="${event} == null"
+                                    th:each="location : ${locations}"
+                                    th:value="${location.getId()}"
+                                    th:text="${location.getName()}">
+                            </option>
+                        </select>
+                    </div>
+                    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+                    <a type="button" class="btn btn-primary" href="/events">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>

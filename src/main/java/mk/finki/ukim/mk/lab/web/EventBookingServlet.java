@@ -39,10 +39,9 @@ public class EventBookingServlet extends HttpServlet {
 
         context.setVariable("eventName", eventName);
         context.setVariable("tickets", tickets);
-        context.setVariable("ipAddress", req.getRemoteAddr());
         context.setVariable("user", user);
 
-        eventBookingService.placeBooking(eventName, user, req.getRemoteAddr(), tickets);
+        eventBookingService.placeBooking(eventName, user, Long.parseLong(tickets));
 
         springTemplateEngine.process("bookingConfirmation.html", context, resp.getWriter());
     }

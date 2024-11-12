@@ -10,4 +10,10 @@ public class EventBooking {
     String attendeeName;
     String attendeeAddress;
     Long numberOfTickets;
+
+    public EventBooking(String eventName, String attendeeName, Long numberOfTickets) {
+        this.eventName = eventName;
+        this.attendeeName = attendeeName;
+        this.numberOfTickets = numberOfTickets;
+    }
 }

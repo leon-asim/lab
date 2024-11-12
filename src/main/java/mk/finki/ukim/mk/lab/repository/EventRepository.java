@@ -3,10 +3,12 @@ package mk.finki.ukim.mk.lab.repository;
 import jakarta.annotation.PostConstruct;
 import mk.finki.ukim.mk.lab.bootstrap.DataHolder;
 import mk.finki.ukim.mk.lab.model.Event;
+import mk.finki.ukim.mk.lab.model.Location;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -32,4 +34,25 @@ public class EventRepository {
                 .filter(i -> i.getPopularityScore() >= rating)
                 .collect(Collectors.toList());
     }
+
+    public Optional<Event> save(String name, String description, Double rating, Location location) {
+        if(location == null) {
+            throw new IllegalArgumentException();
+        }
+        DataHolder.eventList.removeIf(i -> i.getName().equals(name));
+        Event event = new Event(name, description, rating, location);
+        DataHolder.eventList.add(event);
+
+        return Optional.of(event);
+    }
+
+    public void deleteById(Long id) {
+        DataHolder.eventList.removeIf(i -> i.getId().equals(id));
+    }
+
+    public Optional<Event> findById(Long id) {
+        return DataHolder.eventList.stream().filter(i -> i.getId().equals(id)).findFirst();
+    }
+
+
 }

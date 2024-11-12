@@ -15,14 +15,14 @@
         <h1>Welcome to our Event Booking App</h1>
     </header>
     <main>
-        <form th:method="GET" th:action="@{/}">
+        <form th:method="GET" th:action="@{/events}">
             <h2>Search events:</h2>
             <label for="search">Enter a key word: </label><input id="search" type="text" name="search">
             <br/>
             <label for="rating">Enter minimum rating: </label><input id="rating" type="text" name="rating">
             <input type="submit" value="Submit">
         </form>
-        <form th:method="POST" th:action="@{/}">
+        <form th:method="GET" th:action="@{/eventBooking/reserve}">
             <h2>Choose an event:</h2>
             <!-- Display radio buttons for each event,
             the value should be the event name
@@ -34,8 +34,17 @@
                     Name: <span th:text="${event.getName()}"></span>,
                     Description: <span th:text="${event.getDescription()}"></span>,
                     Rating: <span th:text="${event.getPopularityScore()}"></span>
+                    Location: <span th:text="${event.getLocation().getName()}"></span>
                 </span>
+                <a th:href="@{'/events/edit-form/{id}' (id=${event.getId()})}">Edit</a>
+                <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}">Delete</a>
+<!--                <form th:method="GET" th:action="@{'/events/delete/{id}' (id=${event.getId()})}">-->
+<!--                    <button type="submit" value="Delete"></button>-->
+<!--                </form>-->
                 <br/>
+            </div>
+            <div th:if="${hasError}">
+                <p th:text="${error}"></p>
             </div>
 
             <h2>Enter your name:</h2>
@@ -46,6 +55,21 @@
                 <input id="numTickets" type="number" name="numTickets" min="1" max="10" required><br/>
                 <br/>
                 <input type="submit" value="Submit">
+            </form>
+<!--            <form th:method="POST" th:action="@{/events/add}">-->
+<!--                <h2>Add an event:</h2>-->
+<!--                <label for="name">Name: </label>-->
+<!--                <input type="text" id="name" name="name"><br/>-->
+<!--                <label for="description">Description: </label>-->
+<!--                <input type="text" id="description" name="description"><br/>-->
+<!--                <label for="popularityScore">Rating: </label>-->
+<!--                <input type="text" id="popularityScore" name="popularityScore"><br/>-->
+<!--                <label for="location">Choose location: </label>-->
+<!--                <select id="location" name="location">-->
+<!--                    <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getName()}"></option>-->
+<!--                </select>-->
+<!--                <input type="submit" value="Submit">-->
+            <a href="/events/add-form">Add an event</a>
             </form>
         </main>
         </body>
