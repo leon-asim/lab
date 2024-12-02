@@ -59,13 +59,13 @@ public class EventController {
         return "redirect:/events";
     }
 
-    @PutMapping("/edit/{eventId}")
+    @PostMapping("/edit/{eventId}")
     public String editEvent(@PathVariable Long eventId,
                             @RequestParam String name,
                             @RequestParam String description,
                             @RequestParam Double popularityScore,
                             @RequestParam Long location) {
-        eventService.save(name, description, popularityScore, location);
+        eventService.edit(eventId, name, description, popularityScore, location);
 
         return "redirect:/events";
     }

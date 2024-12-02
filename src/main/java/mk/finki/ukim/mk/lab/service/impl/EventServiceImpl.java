@@ -46,6 +46,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
+    public Optional<Event> edit(Long id, String name, String description, Double rating, Long locationId) {
+        Location location = locationRepository.findById(locationId).orElseThrow(() -> new LocationNotFoundException(locationId));
+
+        return eventRepository.edit(id, name, description, rating, location);
+    }
+
+    @Override
     public void deleteById(Long id) {
         eventRepository.deleteById(id);
     }

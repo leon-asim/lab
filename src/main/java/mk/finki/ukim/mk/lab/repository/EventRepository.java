@@ -36,7 +36,7 @@ public class EventRepository {
     }
 
     public Optional<Event> save(String name, String description, Double rating, Location location) {
-        if(location == null) {
+        if (location == null) {
             throw new IllegalArgumentException();
         }
         DataHolder.eventList.removeIf(i -> i.getName().equals(name));
@@ -44,6 +44,23 @@ public class EventRepository {
         DataHolder.eventList.add(event);
 
         return Optional.of(event);
+    }
+
+    public Optional<Event> edit(Long id, String name, String description, Double rating, Location location) {
+        if (location == null) {
+            throw new IllegalArgumentException();
+        }
+//        DataHolder.eventList.removeIf(i -> i.getId().equals(id));
+//        Event event = new Event(name, description, rating, location);
+//        DataHolder.eventList.add(event);
+
+        Event editedEvent = DataHolder.eventList.stream().filter(i -> i.getId().equals(id)).findFirst().orElseThrow();
+        editedEvent.setName(name);
+        editedEvent.setDescription(description);
+        editedEvent.setPopularityScore(rating);
+        editedEvent.setLocation(location);
+
+        return Optional.of(editedEvent);
     }
 
     public void deleteById(Long id) {

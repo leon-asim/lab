@@ -14,7 +14,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-5">
-                <form action="/events/add" method="POST">
+                <form th:action="(${event} == null ? '/events/add' : '/events/edit/' + ${event.getId()})" method="POST">
+<!--                <form action="/events/add" method="POST">-->
                     <input id="id" type="hidden" name="id"
                            th:value="(${event} != null ? ${event.getId()} : '')">
                     <div class="form-group">
