@@ -1,4 +1,4 @@
-package mk.finki.ukim.mk.lab.repository;
+package mk.finki.ukim.mk.lab.repository.inmemory;
 
 import mk.finki.ukim.mk.lab.model.EventBooking;
 import org.springframework.stereotype.Repository;

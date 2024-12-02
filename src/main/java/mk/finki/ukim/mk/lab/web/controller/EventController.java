@@ -25,11 +25,13 @@ public class EventController {
     public String getEventsPage(@RequestParam(required = false) String error,
                                 @RequestParam(required = false) String search,
                                 @RequestParam(required = false) Double rating,
+                                @RequestParam(required = false) Long location,
                                 Model model) {
 
         List<Event> eventList;
-
-        if(search != null && rating != null && search != "") {
+        if(location != null){
+            eventList = eventService.findAllByLocation_Id(location);
+        } else if(search != null && rating != null && search != "") {
             eventList = eventService.searchEventsByNameAndRating(search, rating);
         } else if(search != null && search != "") {
             eventList = eventService.searchEvents(search);

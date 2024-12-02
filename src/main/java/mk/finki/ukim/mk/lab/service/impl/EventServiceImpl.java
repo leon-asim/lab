@@ -3,9 +3,12 @@ package mk.finki.ukim.mk.lab.service.impl;
 import lombok.AllArgsConstructor;
 import mk.finki.ukim.mk.lab.model.Event;
 import mk.finki.ukim.mk.lab.model.Location;
+import mk.finki.ukim.mk.lab.model.exception.EventNotFoundException;
 import mk.finki.ukim.mk.lab.model.exception.LocationNotFoundException;
 import mk.finki.ukim.mk.lab.repository.EventRepository;
 import mk.finki.ukim.mk.lab.repository.LocationRepository;
+import mk.finki.ukim.mk.lab.repository.inmemory.InMemoryEventRepository;
+import mk.finki.ukim.mk.lab.repository.inmemory.InMemoryLocationRepository;
 import mk.finki.ukim.mk.lab.service.EventService;
 import org.springframework.stereotype.Service;
 
@@ -25,31 +28,46 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<Event> searchEvents(String text) {
-        return eventRepository.searchEvents(text);
+        return eventRepository.findByName(text);
     }
 
     @Override
     public List<Event> searchEventsByNameAndRating(String text, Double rating) {
-        return eventRepository.searchEventsByNameAndRating(text, rating);
+        return eventRepository.findByNameAndPopularityScore(text, rating);
     }
 
     @Override
     public List<Event> searchEventsByRating(Double rating) {
-        return eventRepository.searchEventsByRating(rating);
+        return eventRepository.findByPopularityScore(rating);
+    }
+
+    @Override
+    public List<Event> findAllByLocation_Id(Long locationId) {
+        return eventRepository.findAllByLocation_Id(locationId);
     }
 
     @Override
     public Optional<Event> save(String name, String description, Double rating, Long locationId) {
         Location location = locationRepository.findById(locationId).orElseThrow(() -> new LocationNotFoundException(locationId));
 
-        return eventRepository.save(name, description, rating, location);
+        return Optional.of(eventRepository.save(new Event(name, description, rating, location)));
     }
 
     @Override
     public Optional<Event> edit(Long id, String name, String description, Double rating, Long locationId) {
-        Location location = locationRepository.findById(locationId).orElseThrow(() -> new LocationNotFoundException(locationId));
+//        Location location = locationRepository.findById(locationId).orElseThrow(() -> new LocationNotFoundException(locationId));
+//        eventRepository.deleteById(id);
+//        return Optional.of(eventRepository.save(new Event(name, description, rating, location)));
 
-        return eventRepository.edit(id, name, description, rating, location);
+        Location location = locationRepository.findById(locationId).orElseThrow(() -> new LocationNotFoundException(locationId));
+        Event event = eventRepository.findById(id).orElseThrow(() -> new EventNotFoundException(id));
+
+        event.setName(name);
+        event.setDescription(description);
+        event.setPopularityScore(rating);
+        event.setLocation(location);
+
+        return Optional.of(eventRepository.save(event));
     }
 
     @Override

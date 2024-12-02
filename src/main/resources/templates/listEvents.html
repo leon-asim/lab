@@ -20,6 +20,15 @@
             <label for="search">Enter a key word: </label><input id="search" type="text" name="search">
             <br/>
             <label for="rating">Enter minimum rating: </label><input id="rating" type="text" name="rating">
+            <br/>
+            <label>Choose a location: </label>
+            <select name="location" class="form-control">
+                <option th:each="location : ${locations}"
+                        th:value="${location.getId()}"
+                        th:text="${location.getName()}">
+                </option>
+            </select>
+            <br/>
             <input type="submit" value="Submit">
         </form>
         <form th:method="GET" th:action="@{/eventBooking/reserve}">

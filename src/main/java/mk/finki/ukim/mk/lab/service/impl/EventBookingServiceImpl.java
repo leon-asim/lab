@@ -2,7 +2,7 @@ package mk.finki.ukim.mk.lab.service.impl;
 
 import lombok.AllArgsConstructor;
 import mk.finki.ukim.mk.lab.model.EventBooking;
-import mk.finki.ukim.mk.lab.repository.EventBookingRepository;
+import mk.finki.ukim.mk.lab.repository.inmemory.EventBookingRepository;
 import mk.finki.ukim.mk.lab.service.EventBookingService;
 import org.springframework.stereotype.Service;
 

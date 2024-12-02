@@ -3,6 +3,7 @@ package mk.finki.ukim.mk.lab.service.impl;
 import lombok.AllArgsConstructor;
 import mk.finki.ukim.mk.lab.model.Location;
 import mk.finki.ukim.mk.lab.repository.LocationRepository;
+import mk.finki.ukim.mk.lab.repository.inmemory.InMemoryLocationRepository;
 import mk.finki.ukim.mk.lab.service.LocationService;
 import org.springframework.stereotype.Service;
 
