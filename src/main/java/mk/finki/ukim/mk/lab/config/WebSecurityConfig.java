@@ -32,12 +32,12 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .headers((headers) -> headers
-//                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
-//                )
+                .csrf(AbstractHttpConfigurer::disable)
+                .headers((headers) -> headers
+                        .frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
+                )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/home", "/assets/**", "/events", "/eventBooking/**")
+                        .requestMatchers("/", "/home", "/assets/**", "/events", "/eventBooking/**", "/h2/**")
                         .permitAll()
                         .requestMatchers("/admin/**", "/events/**", "/eventBooking/**", "/categories/**").hasRole("ADMIN")
                         .anyRequest()
@@ -67,11 +67,11 @@ public class WebSecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
 
-//        UserDetails user = User.builder()
-//                .username("leon.asim")
-//                .password(passwordEncoder.encode("la"))
-//                .roles("USER")
-//                .build();
+        UserDetails user = User.builder()
+                .username("leon.asim")
+                .password(passwordEncoder.encode("la"))
+                .roles("USER")
+                .build();
 
 
         UserDetails admin = User.builder()
@@ -80,7 +80,7 @@ public class WebSecurityConfig {
                 .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
 }
