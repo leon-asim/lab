@@ -27,9 +27,9 @@ public class DataHolder {
         locationList.add(neta);
         locationList.add(trchajBe);
 
-        eventList.add(new Event("Taksirat", "Music", 7.9, borisTrajkovski));
-        eventList.add(new Event("Brakja Manaki", "Film", 8.3, domNaKultura));
-        eventList.add(new Event("Trcaj Be", "Race", 9.0, trchajBe));
+//        eventList.add(new Event("Taksirat", "Music", 7.9, borisTrajkovski));
+//        eventList.add(new Event("Brakja Manaki", "Film", 8.3, domNaKultura));
+//        eventList.add(new Event("Trcaj Be", "Race", 9.0, trchajBe));
 
 
     }

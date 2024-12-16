@@ -42,8 +42,9 @@
                 <span>
                     Name: <span th:text="${event.getName()}"></span>,
                     Description: <span th:text="${event.getDescription()}"></span>,
-                    Rating: <span th:text="${event.getPopularityScore()}"></span>
-                    Location: <span th:text="${event.getLocation().getName()}"></span>
+                    Rating: <span th:text="${event.getPopularityScore()}"></span>,
+                    Location: <span th:text="${event.getLocation().getName()}"></span>,
+                    Category: <span th:text="${event.getCategory().getName()}"></span>
                 </span>
                 <a th:href="@{'/events/edit-form/{id}' (id=${event.getId()})}">Edit</a>
                 <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}">Delete</a>
@@ -79,6 +80,7 @@
 <!--                </select>-->
 <!--                <input type="submit" value="Submit">-->
             <a href="/events/add-form">Add an event</a>
+            <a href="/categories/add-form">Add a category</a>
             </form>
         </main>
         </body>

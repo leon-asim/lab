@@ -12,5 +12,4 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findByNameAndPopularityScore(String name, Double popularityScore);
     List<Event> findByPopularityScore(Double popularityScore);
     List<Event> findAllByLocation_Id(Long locationId);
-
 }

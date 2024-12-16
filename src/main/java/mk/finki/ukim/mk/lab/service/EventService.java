@@ -12,8 +12,8 @@ public interface EventService {
     List<Event> searchEventsByNameAndRating(String text, Double rating);
     List<Event> searchEventsByRating(Double rating);
     List<Event> findAllByLocation_Id(Long locationId);
-    Optional<Event> save(String name, String description, Double rating, Long locationId);
-    Optional<Event> edit(Long id, String name, String description, Double rating, Long locationId);
+    Optional<Event> save(String name, String description, Double rating, Long locationId, Long categoryId);
+    Optional<Event> edit(Long id, String name, String description, Double rating, Long locationId, Long categoryId);
     void deleteById(Long id);
     Optional<Event> findById(Long id);
 }
