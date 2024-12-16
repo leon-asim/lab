@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("eventBooking")
+@RequestMapping("/eventBooking")
 public class EventBookingController {
     private final EventBookingService eventBookingService;
 

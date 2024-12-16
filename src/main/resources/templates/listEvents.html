@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
     <head>
         <meta charset="utf-8">
         <title>Event Booking page - Welcome and choose an Event</title>
@@ -15,6 +16,43 @@
         <h1>Welcome to our Event Booking App</h1>
     </header>
     <main>
+<!--        <ul class="nav navbar-nav navbar-right">-->
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <a href="#" class="btn btn-light btn-sm ml-3" sec:authentication="name">-->
+<!--                </a>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item" sec:authorize="isAuthenticated()">-->
+<!--                <a class="btn btn-light btn-sm ml-3" href="/logout">-->
+<!--                    <i class="fa-solid fa-right-from-bracket"></i> Logout-->
+<!--                </a>-->
+<!--            </li>-->
+
+<!--            <li class="nav-item" sec:authorize="isAnonymous()">-->
+<!--                <a class="btn btn-light btn-sm ml-3" href="/login">-->
+<!--                    <i class="fa-solid fa-right-to-bracket"></i> Login-->
+<!--                </a>-->
+<!--            </li>-->
+<!--        </ul>-->
+
+        <div>
+            <span sec:authorize="isAuthenticated()">
+                Welcome back
+                <a href="#" class="btn btn-light btn-sm ml-3" sec:authentication="name">
+                </a>
+                 !
+            </span>
+            <span sec:authorize="isAuthenticated()">
+                <a class="btn btn-light btn-sm ml-3" href="/logout">
+                    Logout
+                </a>
+            </span>
+            <span sec:authorize="isAnonymous()">
+                <a class="btn btn-light btn-sm ml-3" href="/login">
+                    Login
+                </a>
+            </span>
+        </div>
         <form th:method="GET" th:action="@{/events}">
             <h2>Search events:</h2>
             <label for="search">Enter a key word: </label><input id="search" type="text" name="search">
@@ -46,8 +84,12 @@
                     Location: <span th:text="${event.getLocation().getName()}"></span>,
                     Category: <span th:text="${event.getCategory().getName()}"></span>
                 </span>
-                <a th:href="@{'/events/edit-form/{id}' (id=${event.getId()})}">Edit</a>
-                <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}">Delete</a>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{'/events/edit-form/{id}' (id=${event.getId()})}">Edit</a>
+                </th:block>
+                <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}">Delete</a>
+                </th:block>
 <!--                <form th:method="GET" th:action="@{'/events/delete/{id}' (id=${event.getId()})}">-->
 <!--                    <button type="submit" value="Delete"></button>-->
 <!--                </form>-->
@@ -79,8 +121,13 @@
 <!--                    <option th:each="location : ${locations}" th:value="${location.getId()}" th:text="${location.getName()}"></option>-->
 <!--                </select>-->
 <!--                <input type="submit" value="Submit">-->
-            <a href="/events/add-form">Add an event</a>
-            <a href="/categories/add-form">Add a category</a>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/events/add-form">Add an event</a>
+            </th:block>
+            <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                <a href="/categories/add-form">Add a category</a>
+            </th:block>
+
             </form>
         </main>
         </body>
